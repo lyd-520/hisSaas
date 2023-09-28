@@ -1,0 +1,58 @@
+server:
+  servlet:
+    context-path: /
+  port: 9966
+
+spring:
+  thymeleaf:
+    cache: false
+  main:
+    banner-mode: off
+  datasource:
+    dynamic:
+      # 严格模式。没有匹配数据源时抛异常
+      strict: true
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/his?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+          username: root
+          password: lyd0821666
+          type: com.alibaba.druid.pool.DruidDataSource
+          init-size: 5
+          min-idle: 5
+          max-active: 20
+          max-wait: 60000
+          time-between-eviction-runs-millis: 60000
+          min-evictable-idle-time-millis: 300000
+          validation-query: SELECT 1 FROM DUAL
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+          pool-prepared-statements: true
+          max-pool-prepared-statement-per-connection-size: 20
+          web-stat.enabled: true
+          web-stat.session-stat-enable: true
+          web-stat.session-stat-max-count: 1000
+          web-stat.profile-enable: true
+          web-stat.url-patterns: /*
+          web-stat.exclusions: /*.js,/*.gif,/*.jpg,/*.png,/*.css,/*.ico,/druid/*
+          stat-view-servlet.enabled:  true
+          stat-view-servlet.url-mappings: /druid/*
+          stat-view-servlet.reset-enable:  false
+          stat-view-servlet.login-username:  admin
+          stat-view-servlet.login-password:  admin
+
+logging:
+  level:
+    com.roy.mapper: debug
+mybatis-plus:
+  type-aliases-package: com.roy.entity
+  mapper-locations: classpath:mapper/*.xml
+  config-location: classpath:mysql-config.xml
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  page-size-zero: tre
+  params: countSql
